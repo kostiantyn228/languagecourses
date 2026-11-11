@@ -135,6 +135,30 @@ internal class Program
                     Console.ReadKey(true);
                     Console.Clear();
                     break;
+                
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                    Console.WriteLine("поки не зроблено.");
+                    Console.WriteLine("\nНатисніть буль-яку клавішу...");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                    break;
+                
+                case "0":
+                    running = false;
+                    Console.WriteLine("До побачення.");
+                    break;
+                
+                default:
+                    Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
+                    Console.WriteLine("\nНатисніть будь-яку клавішу...");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                    break;
             }
 
         }
