@@ -62,6 +62,7 @@ internal class Program
                     for (double x = from; x <= to + 1e-9; x += step)
                     {
                         double y = x * pricePerMonth - Math.Sqrt(x) * 150;
+                        Console.WriteLine($"{x,8:F1} {y,14:F2}");
                         
                     }
                     
