@@ -49,6 +49,29 @@ internal class Program
                     Console.ReadKey(true);
                     Console.Clear();
                     break;
+                case "2":
+                    Console.WriteLine("Вартість курсу залежно від тривалості:");
+                    Console.WriteLine($"{"Місяців",8} {"Сума (грн)",14}");
+
+                    double from = 1.0;
+                    double to = 5.0;
+                    double step = 0.5;
+                    double pricePerMonth = 2000.0;
+
+                    // + 1e-9 щоб не зник останній рядок через похибку double
+                    for (double x = from; x <= to + 1e-9; x += step)
+                    {
+                        double y = x * pricePerMonth - Math.Sqrt(x) * 150;
+                        
+                    }
+                    
+                    Console.WriteLine("\nНатисніть будь-яку клавішу...");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                    break;
+                
+                case "3":
+                    Console.WriteLine("Введіть кількість груп (рядків): ");
             }
 
         }
