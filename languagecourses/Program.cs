@@ -72,6 +72,69 @@ internal class Program
                 
                 case "3":
                     Console.WriteLine("Введіть кількість груп (рядків): ");
+                    bool isRowsOk = int.TryParse(Console.ReadLine(), out int rows);
+
+                        Console.Write("Введіть кількість місяців (стовпців): ");
+                        bool isColsOk = int.TryParse(Console.ReadLine(), out int cols);
+
+                        if (!isRowsOk || !isColsOk || rows <= 0 || cols <= 0)
+                        {
+                            Console.WriteLine("Помилка вводу. Розміри таблиці мають бути додатними числами.");
+                        }
+                    else
+                    {
+                        Console.WriteLine();
+
+                        // шапка таблиці
+                        Console.Write($"{"Група",-10}");
+                        for (int col = 1; col <= cols; col++)
+                        {
+                            Console.Write($"{col,8}");
+                        }
+
+                        Console.WriteLine($"{"Разом",10}");
+
+                        int total = 0;
+
+                        // вивід рядків і сума по кожному рядку
+                        for (int row = 1; row <= rows; row++)
+                        {
+                            int rowSum = 0;
+                            Console.Write($"{"Гр-" + row,-10}");
+
+                            for (int col = 1; col <= cols; col++)
+                            {
+                                int hours = 10 + row * 2 + col;
+                                Console.Write($"{hours,8}");
+                                rowSum += hours;
+                            }
+
+                            total += rowSum;
+                            Console.WriteLine($"{rowSum,10}");
+                        }
+
+                        // підсумки по стовпцях знизу (рівень Б)
+                        Console.Write($"{"Усього",-10}");
+                        for (int col = 1; col <= cols; col++)
+                        {
+                            int colSum = 0;
+                            for (int row = 1; row <= rows; row++)
+                            {
+                                int hours = 10 + row * 2 + col;
+                                colSum += hours;
+                            }
+
+                            Console.Write($"{colSum,8}");
+                        }
+
+                        Console.WriteLine($"{total,10}");
+                    
+                    }
+
+                    Console.WriteLine("\nНатисніть будь-яку клавішу...");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                    break;
             }
 
         }
