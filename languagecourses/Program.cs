@@ -26,8 +26,31 @@ internal class Program
             Console.WriteLine("0 - вихід");
             Console.WriteLine("ваш вибір: ");
             
-            
-            
+            string choice = Console.ReadLine();
+            Console.WriteLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.WriteLine("Тема: №15. Курси іноземних мов");
+                    Console.WriteLine("Сутність: Слухач (8 полів), Довідник: Рівень\n");
+                    Console.WriteLine("Поля запису:");
+                    Console.WriteLine("- номер договору (string)");
+                    Console.WriteLine("- прізвище (string)");
+                    Console.WriteLine("- мова (string)");
+                    Console.WriteLine("- код рівня з довідника (int)");
+                    Console.WriteLine("- група (string)");
+                    Console.WriteLine("- дата початку (DateTime)");
+                    Console.WriteLine("- оплачено місяців (int)");
+                    Console.WriteLine("- поточний бал (double)\n");
+                    Console.WriteLine("Підсумкова величина: середній бал по кожній групі.");
+
+                    Console.WriteLine("\nНатисніть будь-яку клавішу...");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                    break;
+            }
+
         }
     }
 }
