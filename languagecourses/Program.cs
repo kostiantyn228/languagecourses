@@ -18,7 +18,8 @@ internal class Program
 
             switch (choice)
             {
-                case "1": case "2": case "3":
+                case "1": ShowAbout(); Pause();  break;
+                case "2": case "3":
                 case "4": case "5": case "6":
                 case "7": case "8": case "9":
                     ShowNotReady(); Pause(); break;
@@ -60,5 +61,20 @@ internal class Program
     static void ShowNotReady()
     {
         Console.WriteLine("Поки не зроблено.");
+    }
+    static void ShowAbout()
+    {
+        Console.WriteLine("Тема: №15. Курси іноземних мов");
+        Console.WriteLine("Сутність: Слухач (8 полів), Довідник: Рівень\n");
+        Console.WriteLine("Поля запису:");
+        Console.WriteLine("- номер договору (string)");
+        Console.WriteLine("- прізвище (string)");
+        Console.WriteLine("- мова (string)");
+        Console.WriteLine("- код рівня з довідника (int)");
+        Console.WriteLine("- група (string)");
+        Console.WriteLine("- дата початку (DateTime)");
+        Console.WriteLine("- оплачено місяців (int)");
+        Console.WriteLine("- поточний бал (double)\n");
+        Console.WriteLine("Підсумкова величина: середній бал по кожній групі.");
     }
 }
