@@ -112,7 +112,10 @@ internal class Program
 
     static void ShowCostTable()
     {
-        PrintCostTable(1.0, 5.0, 0.5);
+        double from = ReadDouble("Початок (місяців, від 1 до 24): ", 1, 24);
+        double to = ReadDouble("Кінець (місяців): ", from, 24);
+        double step = ReadDouble("Крок (від 0,1 до 12): ", 0.1, 12);
+        PrintCostTable(from, to, step);
     }
     static int CalculateHours(int group, int month)
     {
@@ -155,18 +158,49 @@ internal class Program
 
     static void ShowHoursTable()
     {
-        Console.Write("Кількість груп (рядків): ");
-        bool isRowsOk = int.TryParse(Console.ReadLine(), out int rows);
-        Console.Write("Кількість місяців (стовпців): ");
-        bool isColsOk = int.TryParse(Console.ReadLine(), out int cols);
-
-        if (!isRowsOk || !isColsOk || rows <= 0 || cols <= 0)
-        {
-            Console.WriteLine("Помилка вводу. Розміри таблиці мають бути додатними числами.");
-            return; // рання відмова
-        }
-
+        int rows = ReadInt("Кількість груп (рядків, від 1 до 20): ", 1, 20);
+        int cols = ReadInt("Кількість місяців (стовпців, від 1 до 12): ", 1, 12);
         PrintHoursTable(rows, cols);
+    }
+    static int ReadInt(string prompt, int min, int max)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+            if (!int.TryParse(Console.ReadLine(), out int value))
+            {
+                Console.WriteLine("Помилка: введіть ціле число.");
+                continue;
+            }
+            if (value < min || value > max)
+            {
+                Console.WriteLine($"Помилка: число має бути від {min} до {max}.");
+                continue;
+            }
+            return value;
+        }
+    }
+
+    static double ReadDouble(string prompt, double min, double max)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+            string text = Console.ReadLine();
+            // кома й крапка обидві приймаються
+            if (text == null || !double.TryParse(text.Trim().Replace(',', '.'),
+                    NumberStyles.Float, CultureInfo.InvariantCulture, out double value))
+            {
+                Console.WriteLine("Помилка: введіть число.");
+                continue;
+            }
+            if (value < min || value > max)
+            {
+                Console.WriteLine($"Помилка: число має бути від {min} до {max}.");
+                continue;
+            }
+            return value;
+        }
     }
 
 }
