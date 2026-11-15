@@ -26,6 +26,7 @@ internal class Program
                 case "2":
                     ShowCostTable(); Pause(); break;
                 case "3":
+                    ShowHoursTable(); Pause();  break;
                 case "4":
                 case "5":
                 case "6":
@@ -112,6 +113,60 @@ internal class Program
     static void ShowCostTable()
     {
         PrintCostTable(1.0, 5.0, 0.5);
+    }
+    static int CalculateHours(int group, int month)
+    {
+        return 10 + group * 2 + month;
+    }
+
+    static void PrintHoursTable(int rows, int cols)
+    {
+        Console.WriteLine();
+        Console.Write($"{"Група",-10}");
+        for (int col = 1; col <= cols; col++)
+            Console.Write($"{col,8}");
+        Console.WriteLine($"{"Разом",10}");
+
+        int total = 0;
+        for (int row = 1; row <= rows; row++)
+        {
+            int rowSum = 0;
+            Console.Write($"{"Гр-" + row,-10}");
+            for (int col = 1; col <= cols; col++)
+            {
+                int hours = CalculateHours(row, col);
+                Console.Write($"{hours,8}");
+                rowSum += hours;
+            }
+            total += rowSum;
+            Console.WriteLine($"{rowSum,10}");
+        }
+
+        Console.Write($"{"Усього",-10}");
+        for (int col = 1; col <= cols; col++)
+        {
+            int colSum = 0;
+            for (int row = 1; row <= rows; row++)
+                colSum += CalculateHours(row, col);
+            Console.Write($"{colSum,8}");
+        }
+        Console.WriteLine($"{total,10}");
+    }
+
+    static void ShowHoursTable()
+    {
+        Console.Write("Кількість груп (рядків): ");
+        bool isRowsOk = int.TryParse(Console.ReadLine(), out int rows);
+        Console.Write("Кількість місяців (стовпців): ");
+        bool isColsOk = int.TryParse(Console.ReadLine(), out int cols);
+
+        if (!isRowsOk || !isColsOk || rows <= 0 || cols <= 0)
+        {
+            Console.WriteLine("Помилка вводу. Розміри таблиці мають бути додатними числами.");
+            return; // рання відмова
+        }
+
+        PrintHoursTable(rows, cols);
     }
 
 }
