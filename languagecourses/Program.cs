@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace languagecourses;
 
@@ -18,11 +19,22 @@ internal class Program
 
             switch (choice)
             {
-                case "1": ShowAbout(); Pause();  break;
-                case "2": case "3":
-                case "4": case "5": case "6":
-                case "7": case "8": case "9":
-                    ShowNotReady(); Pause(); break;
+                case "1":
+                    ShowAbout();
+                    Pause();
+                    break;
+                case "2":
+                    ShowCostTable(); Pause(); break;
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                    ShowNotReady();
+                    Pause();
+                    break;
                 case "0":
                     running = false;
                     Console.WriteLine("До побачення.");
@@ -62,6 +74,7 @@ internal class Program
     {
         Console.WriteLine("Поки не зроблено.");
     }
+
     static void ShowAbout()
     {
         Console.WriteLine("Тема: №15. Курси іноземних мов");
@@ -77,4 +90,28 @@ internal class Program
         Console.WriteLine("- поточний бал (double)\n");
         Console.WriteLine("Підсумкова величина: середній бал по кожній групі.");
     }
+
+    static double CalculateCost(double months, double pricePerMonth)
+    {
+        return months * pricePerMonth - Math.Sqrt(months) * 150;
+    }
+
+    static void PrintCostTable(double from, double to, double step)
+    {
+        Console.WriteLine("Вартість курсу залежить від тривалості");
+        Console.WriteLine($"{"Місяців",8} {"Сума (грн)",14}");
+        
+        // + 1e-9, щоб не зник останній рядок через похибку double
+        for (double x = from; x <= to + 1e-9; x += step)
+        {
+            double y = CalculateCost(x, 2000.0);
+            Console.WriteLine($"{x,8:F1} {y,14:F2}");
+        }
+    }
+
+    static void ShowCostTable()
+    {
+        PrintCostTable(1.0, 5.0, 0.5);
+    }
+
 }
