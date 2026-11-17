@@ -10,6 +10,10 @@ internal class Program
         Console.OutputEncoding = Encoding.UTF8;
         Console.InputEncoding = Encoding.UTF8;
 
+        const int Capacity = 100;
+        double[] scores = new double[Capacity];
+        int count = 0;
+        
         bool running = true;
         while (running)
         {
@@ -28,6 +32,12 @@ internal class Program
                 case "3":
                     ShowHoursTable(); Pause();  break;
                 case "4":
+                    double newScore = ReadDouble("Поточний бал (від 0 до 100): ", 0, 100);
+                    int before = count;
+                    AddValue(scores, ref count, newScore, Capacity);
+                    Console.WriteLine($"Лічильник: було {before}, стало {count}.");
+                    Pause();
+                    break;
                 case "5":
                 case "6":
                 case "7":
@@ -60,6 +70,7 @@ internal class Program
         Console.WriteLine("7 - зберегти у файл");
         Console.WriteLine("8 - завантажити з файлу");
         Console.WriteLine("9 - експорт у CSV");
+        Console.WriteLine( "1- дослід: значиме та посилальне");
         Console.WriteLine("0 - вихід");
         Console.Write("Ваш вибір: ");
     }
@@ -160,7 +171,7 @@ internal class Program
     {
         int rows = ReadInt("Кількість груп (рядків, від 1 до 20): ", 1, 20);
         int cols = ReadInt("Кількість місяців (стовпців, від 1 до 12): ", 1, 12);
-        PrintHoursTable(rows, cols);
+        PrintHoursTable(rows, cols); 
     }
     static int ReadInt(string prompt, int min, int max)
     {
@@ -201,6 +212,17 @@ internal class Program
             }
             return value;
         }
+    }
+    
+    static void AddValue(double[] values, ref int count, double newValue, int capacity)
+    {
+        if (count == capacity)
+        {
+            Console.WriteLine("місця більше немає.");
+            return;
+        }
+        values[count] = newValue;
+        count++;
     }
 
 }
