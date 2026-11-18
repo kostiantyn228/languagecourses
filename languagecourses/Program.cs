@@ -66,6 +66,10 @@ internal class Program
                     ShowNotReady();
                     Pause();
                     break;
+                case "10":
+                    DemoValueVsReference();
+                    Pause();
+                    break;
                 case "0":
                     running = false;
                     Console.WriteLine("До побачення.");
@@ -90,7 +94,7 @@ internal class Program
         Console.WriteLine("7 - зберегти у файл");
         Console.WriteLine("8 - завантажити з файлу");
         Console.WriteLine("9 - експорт у CSV");
-        Console.WriteLine( "1- дослід: значиме та посилальне");
+        Console.WriteLine( "10 - дослід: значиме та посилальне");
         Console.WriteLine("0 - вихід");
         Console.Write("Ваш вибір: ");
     }
@@ -298,5 +302,26 @@ internal class Program
             values[i] = values[i + 1];
         }
         count--;
+    }
+    
+    static void TryChangeInt(int value)
+    {
+        value = value + 100;
+    }
+
+    static void ChangeArrayElement(int[] prices)
+    {
+        prices[0] = prices[0] + 100;
+    }
+
+    static void DemoValueVsReference()
+    {
+        int price = 50;
+        int[] prices = { 50, 70, 90 };
+
+        Console.WriteLine($"До: price = {price}, prices[0] = {prices[0]}");
+        TryChangeInt(price);
+        ChangeArrayElement(prices);
+        Console.WriteLine($"Після: price = {price}, prices[0] = {prices[0]}");
     }
 }
