@@ -45,6 +45,15 @@ internal class Program
                 case "5":
                 case "6":
                     PrintValues(scores, count);
+                    if (count > 0)
+                    {
+                        Statistics(scores, count, out double sum, out double average);
+                        FindMax(scores, count, out double max, out int maxNumber);
+                        Console.WriteLine($"\nЗначень: {count}");
+                        Console.WriteLine($"Сума: {sum:F2}");
+                        Console.WriteLine($"Середній бал: {average:F2}");
+                        Console.WriteLine($"Найбільший: {max:F1} (№ {maxNumber})");
+                    }
                     Pause();
                     break;
                 case "7":
@@ -242,6 +251,34 @@ internal class Program
         for (int i = 0; i < count; i++)
         {
             Console.WriteLine($"{i + 1,4} {values[i],8:F1}");
+        }
+    }
+    static void Statistics(double[] values, int count, out double sum, out double average)
+    {
+        sum = 0;
+        for (int i = 0; i < count; i++)
+        {
+            sum += values[i];
+        }
+        average = count > 0 ? sum / count : 0;
+    }
+    static void FindMax(double[] values, int count, out double max, out int maxNumber)
+    {
+        if (count == 0)
+        {
+            max = 0;
+            maxNumber = 0;
+            return;
+        }
+        max = values[0];
+        maxNumber = 1;
+        for (int i = 1; i < count; i++)
+        {
+            if (values[i] > max)
+            {
+                max = values[i];
+                maxNumber = i + 1;
+            }
         }
     }
 }
