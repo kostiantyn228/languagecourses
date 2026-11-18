@@ -43,6 +43,10 @@ internal class Program
                     Pause();
                     break;
                 case "5":
+                    int number = ReadInt("Номер для видалення: ", -1000, 1000);
+                    RemoveAt(scores, ref count, number);
+                    Pause();
+                    break;
                 case "6":
                     PrintValues(scores, count);
                     if (count > 0)
@@ -280,5 +284,19 @@ internal class Program
                 maxNumber = i + 1;
             }
         }
+    }
+    // Видаляє елемент за номером (нумерація з 1, як у таблиці), решту зсуває вліво
+    static void RemoveAt(double[] values, ref int count, int index)
+    {
+        if (index < 1 || index > count)
+        {
+            Console.WriteLine("Неправильний номер. Нічого не видалено.");
+            return;
+        }
+        for (int i = index - 1; i < count - 1; i++)
+        {
+            values[i] = values[i + 1];
+        }
+        count--;
     }
 }
