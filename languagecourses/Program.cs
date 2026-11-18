@@ -28,9 +28,13 @@ internal class Program
                     Pause();
                     break;
                 case "2":
-                    ShowCostTable(); Pause(); break;
+                    ShowCostTable();
+                    Pause();
+                    break;
                 case "3":
-                    ShowHoursTable(); Pause();  break;
+                    ShowHoursTable();
+                    Pause();  
+                    break;
                 case "4":
                     double newScore = ReadDouble("Поточний бал (від 0 до 100): ", 0, 100);
                     int before = count;
@@ -40,6 +44,9 @@ internal class Program
                     break;
                 case "5":
                 case "6":
+                    PrintValues(scores, count);
+                    Pause();
+                    break;
                 case "7":
                 case "8":
                 case "9":
@@ -224,5 +231,17 @@ internal class Program
         values[count] = newValue;
         count++;
     }
-
+    static void PrintValues(double[] values, int count)
+    {
+        if (count == 0)
+        {
+            Console.WriteLine("Список порожній.");
+            return;
+        }
+        Console.WriteLine($"{"№",4} {"Бал",8}");
+        for (int i = 0; i < count; i++)
+        {
+            Console.WriteLine($"{i + 1,4} {values[i],8:F1}");
+        }
+    }
 }
