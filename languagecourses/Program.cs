@@ -35,6 +35,7 @@ internal class Program
                 case "1":
                     PrintStudents(contracts, surnames, languages, levelIds, groups,
                         startDates, paidMonths, scores, count);
+                    PrintGroupAverages(groups, scores, count);
                     Pause();
                     break;
                 case "2":
@@ -49,6 +50,9 @@ internal class Program
                 case "7":
                 case "8":
                 case "9":
+                    ShowNotReady();
+                    Pause();
+                    break;
                 case "10":
                     FillSampleData(contracts, surnames, languages, levelIds, groups,
                         startDates, paidMonths, scores, ref count, ref nextId);
