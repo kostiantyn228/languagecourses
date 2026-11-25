@@ -272,4 +272,52 @@ static void FillSampleData(string[] contracts, string[] surnames, string[] langu
     }
     Console.WriteLine($"Додано тестових записів: {added}."); 
  }
+// Середній бал однієї групи. Повертає число, нічого не виводить.
+// Порожня група або порожнє сховище: 0, ділення на нуль немає
+static double AverageScore(string[] groups, double[] scores, int count, string group)
+{
+    double sum = 0;
+    int n = 0;
+    for (int i = 0; i < count; i++)
+    {
+        if (groups[i] == group)
+        {
+            sum += scores[i];
+            n++;
+        }
+    }
+    return n > 0 ? sum / n : 0;
+}
+
+// Виводить середній бал по кожній групі. Унікальні групи шукаємо вручну циклом
+static void PrintGroupAverages(string[] groups, double[] scores, int count)
+{
+    if (count == 0)
+    {
+        return;
+    }
+    string[] seen = new string[groups.Length];
+    int seenCount = 0;
+
+    Console.WriteLine("\nСередній бал по групах:");
+    for (int i = 0; i < count; i++)
+    {
+        bool known = false;
+        for (int j = 0; j < seenCount; j++)
+        {
+            if (seen[j] == groups[i])
+            {
+                known = true;
+                break;
+            }
+        }
+        if (known)
+        {
+            continue;
+        }
+        seen[seenCount] = groups[i];
+        seenCount++;
+        Console.WriteLine($"  {groups[i],-8}{AverageScore(groups, scores, count, groups[i]),8:F2}");
+    }
+}
 }
