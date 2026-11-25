@@ -50,7 +50,8 @@ internal class Program
                 case "8":
                 case "9":
                 case "10":
-                    ShowNotReady();
+                    FillSampleData(contracts, surnames, languages, levelIds, groups,
+                        startDates, paidMonths, scores, ref count, ref nextId);
                     Pause();
                     break;
                 case "0":
@@ -230,5 +231,45 @@ static void AddStudent(string[] contracts, string[] surnames, string[] languages
     nextId++;
 
     Console.WriteLine($"Додано слухача, договір {contracts[count - 1]}.");
+ }
+
+// Заповнює сховище 6 готовими записами без запитань
+static void FillSampleData(string[] contracts, string[] surnames, string[] languages,
+    int[] levelIds, string[] groups, DateTime[] startDates, int[] paidMonths,
+    double[] scores, ref int count, ref int nextId)
+{
+    string[] sSurnames = { "Коваленко", "Шевченко", "Бондаренко", "Мельник", "Ткаченко", "Кравчук" };
+    string[] sLanguages = { "англійська", "англійська", "німецька", "німецька", "польська", "англійська" };
+    int[] sLevels = { 2, 2, 3, 3, 1, 4 };
+    string[] sGroups = { "EN-1", "EN-1", "DE-1", "DE-1", "PL-1", "EN-2" };
+    DateTime[] sDates =
+    {
+        new DateTime(2026, 9, 1), new DateTime(2026, 9, 1), new DateTime(2026, 9, 15),
+        new DateTime(2026, 9, 15), new DateTime(2026, 10, 1), new DateTime(2026, 10, 10)
+    };
+    int[] sMonths = { 3, 3, 6, 4, 2, 5 };
+    double[] sScores = { 85.5, 72, 90, 64.5, 78, 55 };
+
+    int added = 0;
+    for (int i = 0; i < sSurnames.Length; i++)
+    {
+        if (count == contracts.Length)
+        {
+            Console.WriteLine("Сховище заповнене, решту не додано.");
+            break;
+        }
+        contracts[count] = "Д-" + nextId.ToString("D3");
+        surnames[count] = sSurnames[i];
+        languages[count] = sLanguages[i];
+        levelIds[count] = sLevels[i];
+        groups[count] = sGroups[i];
+        startDates[count] = sDates[i];
+        paidMonths[count] = sMonths[i];
+        scores[count] = sScores[i];
+        count++;
+        nextId++;
+        added++;
+    }
+    Console.WriteLine($"Додано тестових записів: {added}."); 
  }
 }
