@@ -38,6 +38,10 @@ internal class Program
                     Pause();
                     break;
                 case "2":
+                    AddStudent(contracts, surnames, languages, levelIds, groups,
+                        startDates, paidMonths, scores, ref count, ref nextId);
+                    Pause();
+                    break;
                 case "3":
                 case "4":
                 case "5":
@@ -151,4 +155,80 @@ internal class Program
             return value;
         }
     }
+    
+    static string ReadText(string prompt, int minLength)
+{
+    while (true)
+    {
+        Console.Write(prompt);
+        string text = Console.ReadLine();
+        if (text != null)
+        {
+            text = text.Trim();
+            if (text.Length >= minLength)
+            {
+                return text;
+            }
+        }
+        Console.WriteLine($"Помилка: введіть не менше {minLength} симв.");
+    }
+}
+
+// Читає дату у форматі дд.мм.рррр: існуючу й не з майбутнього
+static DateTime ReadDate(string prompt)
+{
+    while (true)
+    {
+        Console.Write(prompt);
+        string text = Console.ReadLine();
+        if (!DateTime.TryParseExact(text, "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out DateTime date))
+        {
+            Console.WriteLine("Помилка: дата має бути у форматі дд.мм.рррр, наприклад 01.09.2026.");
+            continue;
+        }
+        if (date > DateTime.Today)
+        {
+            Console.WriteLine("Помилка: дата початку не може бути в майбутньому.");
+            continue;
+        }
+        return date;
+    }
+}
+
+// Додає слухача: спершу збирає всі поля в локальні змінні, потім пише у масиви.
+// count і nextId передаються через ref, бо метод їх змінює
+static void AddStudent(string[] contracts, string[] surnames, string[] languages,
+    int[] levelIds, string[] groups, DateTime[] startDates, int[] paidMonths,
+    double[] scores, ref int count, ref int nextId)
+{
+    // contracts.Length - це і є Capacity
+    if (count == contracts.Length)
+    {
+        Console.WriteLine("Сховище заповнене, видаліть щось зайве.");
+        return;
+    }
+
+    string surname = ReadText("Прізвище: ", 2);
+    string language = ReadText("Мова: ", 2);
+    int levelId = ReadInt("Код рівня (1-6): ", 1, 6);
+    string group = ReadText("Група: ", 1).ToUpper(); // щоб «en-1» і «EN-1» були однією групою
+    DateTime start = ReadDate("Дата початку (дд.мм.рррр): ");
+    int months = ReadInt("Оплачено місяців (0-24): ", 0, 24);
+    double score = ReadDouble("Поточний бал (0-100): ", 0, 100);
+
+    // усі масиви заповнюються тут, під одним індексом
+    contracts[count] = "Д-" + nextId.ToString("D3"); // номер призначає програма
+    surnames[count] = surname;
+    languages[count] = language;
+    levelIds[count] = levelId;
+    groups[count] = group;
+    startDates[count] = start;
+    paidMonths[count] = months;
+    scores[count] = score;
+    count++;
+    nextId++;
+
+    Console.WriteLine($"Додано слухача, договір {contracts[count - 1]}.");
+ }
 }
